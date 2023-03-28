@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wouter van der Laan - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="navbar">
+      <h1><a href="/">Wouter van der Laan</a></h1>
+      <h1><a href="/Portfolio">Portfolio</a></h1>
+      <h1><a href="/Resume">Resume</a></h1>
+      <h1><a href="/About">About</a></h1>
+      <h1><a href="/Contact">Contact</a></h1>
+    </div>
+    <div id="content" class="text">
+      <p>Change About text:</p>
+      <form action="/Compose/About" method="post">
+        <textarea name="about" id="aboutText" rows="20"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <br />
+      <p>Add/remove Resume items:</p>
+      <form action="/Compose/Education" method="post">
+        <p>Education & Residencies:</p>
+        <input type="number" name="startDate" placeholder="Starting year" />
+        <input type="number" name="endDate" placeholder="Ending year" />
+        <input type="text" name="name" placeholder="Name of institution" />
+        <button type="submit">Submit</button>
+      </form>
+      <form action="/Compose/Exhibition" method="post">
+        <p>Exhibitions:</p>
+        <input type="number" name="startDate" placeholder="Year" />
+        <input type="text" name="name" placeholder="Name of institution" />
+        <button type="submit">Submit</button>
+      </form>
+      <form action="/Compose/Prize" method="post">
+        <p>Prizes, Grants & Nominations:</p>
+        <input type="number" name="startDate" placeholder="Year" />
+        <input type="text" name="name" placeholder="Name of prize" />
+        <button type="submit">Submit</button>
+      </form>
+      <form action="/Compose/Publication" method="post">
+        <p>Publications:</p>
+        <input type="number" name="startDate" placeholder="Year" />
+        <input type="text" name="name" placeholder="Name of publication" />
+        <button type="submit">Submit</button>
+      </form>
+      <form action="/Compose/Other" method="post">
+        <p>Other:</p>
+        <input type="number" name="startDate" placeholder="Year" />
+        <input type="text" name="name" placeholder="Name of other" />
+        <button type="submit">Submit</button>
+      </form>
+      <form action="/Delete" method="post">
+        <p>
+          Wouter van der Laan (Huizen, NL, 1993) <br />
+          Lives and works in Amsterdam (NL)
+        </p>
+        <br />
+        <p>Education & Residencies:</p>
+        <table id="education"></table>
+        <br />
+        <p>Exhibitions:</p>
+        <table id="exhibition"></table>
+        <br />
+        <p>Prizes, Grants & Nominations:</p>
+        <table id="prize"></table>
+        <br />
+        <p>Publications:</p>
+        <table id="publication"></table>
+        <br />
+        <p>Other:</p>
+        <table id="other"></table>
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+    <footer id="footer">
+      <p id="copyright"></p>
+    </footer>
+    <script src="/compose.js"></script>
+    <script src="date.js" type="text/javascript"></script>
+  </body>
+</html>

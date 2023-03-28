@@ -1,0 +1,178 @@
+html,
+body {
+  scroll-behavior: smooth;
+  height: 99.5%;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+}
+
+footer {
+  height: 50px;
+  text-align: center;
+  font-size: 0.7rem;
+  color: grey;
+}
+
+h1 {
+  margin: 5px 0;
+  font-weight: 300;
+  font-size: 1.6rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link,
+a:visited {
+  color: black;
+}
+
+a:hover {
+  color: grey;
+}
+
+button {
+  font-family: inherit;
+  background-color: white;
+  border: 1px solid grey;
+}
+
+form {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid grey;
+}
+
+input {
+  font: inherit;
+}
+
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+  border: none;
+  resize: none;
+  outline: none;
+}
+
+#navbar {
+  /* border-bottom: 1px solid grey; */
+  height: 200px;
+  margin: 20px 30px 0;
+}
+
+#arrow {
+  font-size: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  opacity: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  position: fixed;
+  bottom: 5%;
+  left: 5%;
+}
+
+#arrow:hover {
+  animation-name: rotate;
+  animation-duration: 0.5s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+#content {
+  min-height: 60vh;
+  margin: 40px auto 0;
+  max-width: 1000px;
+}
+
+#content::after {
+  content: "";
+  display: block;
+  height: 100px;
+}
+
+#content a {
+  margin: 0 5px 0 0;
+}
+
+.text {
+  align-content: center;
+  padding: 0 20%;
+  font-size: 0.7rem;
+  font-weight: 300;
+  line-height: 20px;
+}
+
+#portfolio {
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 40px auto 0;
+  max-width: 1200px;
+}
+
+.portfolioSeries {
+  padding-bottom: 30px;
+  margin-bottom: 50px;
+  overflow: hidden;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+img {
+  width: 100%;
+  max-height: 300px;
+  margin-top: 20px;
+  transition: transform 0.1s 0s ease;
+}
+
+img:hover {
+  transform: translateY(-4px);
+  -webkit-filter: opacity(40%);
+  filter: opacity(40%);
+}
+
+@media (max-width: 850px) {
+  #content,
+  #navbar,
+  #portfolio {
+    margin: 20px;
+    min-width: 300px;
+  }
+  #arrow {
+    position: static;
+    margin: 0 auto;
+  }
+  .text {
+    padding: 0;
+    font-size: 0.7rem;
+  }
+  .portfolioSeries {
+    border-bottom: 1px solid grey;
+  }
+}
