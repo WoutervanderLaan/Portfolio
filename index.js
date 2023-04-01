@@ -120,7 +120,7 @@ app.post("/addPortfolio", (req, res, next) => {
     // const { img } = files;
     // const newImgArray = !img.length ? [img] : [...img];
 
-    for (const img of imgFiles) {
+    imgFiles.forEach((img) => {
       const { originalFilename } = img;
       /////// change original filename
       const exceptions = [
@@ -170,7 +170,7 @@ app.post("/addPortfolio", (req, res, next) => {
           );
           await newPortfolioItem.save();
         });
-    }
+    });
   });
   res.redirect("/addPortfolio");
 });

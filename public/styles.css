@@ -176,3 +176,9 @@ img:hover {
     border-bottom: 1px solid grey;
   }
 }
+
+.loading-icon {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0;
+}

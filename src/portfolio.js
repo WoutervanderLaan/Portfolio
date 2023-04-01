@@ -1,92 +1,91 @@
-function loadPortfolio() {
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", "/Portfolio/Data", true);
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      const data = JSON.parse(xhr.responseText);
+const loadingIcon = document.querySelector(".loading-icon");
 
-      const seriesArray = [];
-      const portfolioArray = [];
+loadingIcon.style.display = "none";
 
-      data.forEach((portfolioItem) => {
-        const checkSeriesExistence = seriesArray.includes(portfolioItem.series);
+fetch("/Portfolio/Data")
+  .then((response) => response.json())
+  .then((data) => {
+    const seriesArray = [];
+    const portfolioArray = [];
 
-        if (!checkSeriesExistence) {
-          ////// Creating new Series //////
-          seriesArray.push(portfolioItem.series);
+    data.forEach((portfolioItem) => {
+      const checkSeriesExistence = seriesArray.includes(portfolioItem.series);
 
-          const seriesDiv = document.createElement("div");
-          seriesDiv.id = portfolioItem.series;
-          seriesDiv.classList.add("portfolioSeries");
+      if (!checkSeriesExistence) {
+        ////// Creating new Series //////
+        seriesArray.push(portfolioItem.series);
 
-          const pTitle = document.createElement("p");
-          const pMaterial = document.createElement("p");
-          const pDimensions = document.createElement("p");
-          const pDescription = document.createElement("p");
-          pTitle.textContent = portfolioItem.title;
-          pMaterial.textContent = portfolioItem.material;
-          pDimensions.textContent = portfolioItem.dimensions;
-          pDescription.innerText = portfolioItem.description;
-          seriesDiv.appendChild(pTitle);
-          seriesDiv.appendChild(pMaterial);
-          seriesDiv.appendChild(pDimensions);
-          seriesDiv.appendChild(pDescription);
+        const seriesDiv = document.createElement("div");
+        seriesDiv.id = portfolioItem.series;
+        seriesDiv.classList.add("portfolioSeries");
 
-          const containerDiv = document.createElement("div");
-          containerDiv.classList.add("imageContainer");
+        const pTitle = document.createElement("p");
+        const pMaterial = document.createElement("p");
+        const pDimensions = document.createElement("p");
+        const pDescription = document.createElement("p");
+        pTitle.textContent = portfolioItem.title;
+        pMaterial.textContent = portfolioItem.material;
+        pDimensions.textContent = portfolioItem.dimensions;
+        pDescription.innerText = portfolioItem.description;
+        seriesDiv.appendChild(pTitle);
+        seriesDiv.appendChild(pMaterial);
+        seriesDiv.appendChild(pDimensions);
+        seriesDiv.appendChild(pDescription);
 
-          ////// Creating new work within series //////
-          const workDiv = document.createElement("div");
-          workDiv.classList.add("portfolioItem");
+        const containerDiv = document.createElement("div");
+        containerDiv.classList.add("imageContainer");
 
-          const a = document.createElement("a");
-          const img = document.createElement("img");
-          a.href = "img/" + portfolioItem.img;
-          img.src = "img/" + portfolioItem.img;
-          img.alt = portfolioItem.img;
-          img.loading = "lazy";
-          workDiv.appendChild(a).appendChild(img);
+        ////// Creating new work within series //////
+        const workDiv = document.createElement("div");
+        workDiv.classList.add("portfolioItem");
 
-          ////// Attaching work to Series //////
-          containerDiv.appendChild(workDiv);
-          seriesDiv.appendChild(containerDiv);
+        const a = document.createElement("a");
+        const img = document.createElement("img");
+        a.href = "img/" + portfolioItem.img;
+        img.src = "img/" + portfolioItem.img;
+        img.alt = portfolioItem.img;
+        img.loading = "lazy";
+        workDiv.appendChild(a).appendChild(img);
 
-          ////// Storing Series in Array for Pick-up //////
-          portfolioArray.push(seriesDiv);
+        ////// Attaching work to Series //////
+        containerDiv.appendChild(workDiv);
+        seriesDiv.appendChild(containerDiv);
 
-          // document.getElementById("portfolio").appendChild(seriesDiv);
-        } else {
-          ////// Picking-up Series for Appending //////
-          const existingDiv = portfolioArray.find((item) => {
-            return item.id === portfolioItem.series;
-          });
-          ////// Creating new Work within Existing Series //////
-          const workDiv = document.createElement("div");
-          workDiv.classList.add("portfolioItem");
+        ////// Storing Series in Array for Pick-up //////
+        portfolioArray.push(seriesDiv);
 
-          const a = document.createElement("a");
-          const img = document.createElement("img");
-          const br = document.createElement("br");
-          a.href = "img/" + portfolioItem.img;
-          img.src = "img/" + portfolioItem.img;
-          img.alt = portfolioItem.img;
-          img.loading = "lazy";
-          workDiv.appendChild(a).appendChild(img);
+        // document.getElementById("portfolio").appendChild(seriesDiv);
+      } else {
+        ////// Picking-up Series for Appending //////
+        const existingDiv = portfolioArray.find((item) => {
+          return item.id === portfolioItem.series;
+        });
+        ////// Creating new Work within Existing Series //////
+        const workDiv = document.createElement("div");
+        workDiv.classList.add("portfolioItem");
 
-          ////// Attaching work to Existing Series //////
-          existingDiv.querySelector(".imageContainer").appendChild(workDiv);
-        }
-      });
+        const a = document.createElement("a");
+        const img = document.createElement("img");
+        const br = document.createElement("br");
+        a.href = "img/" + portfolioItem.img;
+        img.src = "img/" + portfolioItem.img;
+        img.alt = portfolioItem.img;
+        img.loading = "lazy";
+        workDiv.appendChild(a).appendChild(img);
 
-      portfolioArray.forEach((series) => {
-        document.getElementById("portfolio").appendChild(series);
-      });
-    }
-  };
-  xhr.send();
-}
+        ////// Attaching work to Existing Series //////
+        existingDiv.querySelector(".imageContainer").appendChild(workDiv);
+      }
+    });
 
-document.addEventListener("DOMContentLoaded", loadPortfolio);
+    portfolioArray.forEach((series) => {
+      document.getElementById("portfolio").appendChild(series);
+    });
+  })
+  .catch((error) => console.log(error))
+  .finally(() => (loadingIcon.style.display = "none"));
+
+loadingIcon.style.display = "flex";
 
 window.addEventListener("scroll", (e) => {
   window.scrollY > 2000
