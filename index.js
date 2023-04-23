@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const formidable = require("formidable");
 const fs = require("fs");
-const sharp = require("sharp");
+// const sharp = require("sharp");
 require("dotenv").config();
 
 const app = express();
@@ -117,8 +117,6 @@ app.post("/addPortfolio", (req, res, next) => {
     if (err) return next(err);
 
     const imgFiles = Array.isArray(files.img) ? files.img : [files.img];
-    // const { img } = files;
-    // const newImgArray = !img.length ? [img] : [...img];
 
     imgFiles.forEach((img) => {
       const { originalFilename } = img;
@@ -161,15 +159,15 @@ app.post("/addPortfolio", (req, res, next) => {
 
       ////// reducing filesize and writing file to new path
 
-      sharp(tempFilePath)
-        .resize(1200)
-        .toFile(destinationPath, async (err, info) => {
-          if (err) return next(err);
-          console.log(
-            `Image ${correctedFileName} resized and saved succesfully to ${destinationPath}`
-          );
-          await newPortfolioItem.save();
-        });
+      // sharp(tempFilePath)
+      //   .resize(1200)
+      //   .toFile(destinationPath, async (err, info) => {
+      //     if (err) return next(err);
+      //     console.log(
+      //       `Image ${correctedFileName} resized and saved succesfully to ${destinationPath}`
+      //     );
+      //     await newPortfolioItem.save();
+      //   });
     });
   });
   res.redirect("/addPortfolio");
